@@ -1,0 +1,89 @@
+<!-- Start Portfolio Area -->
+<section class="wn__portfolio__area gallery__masonry__activation bg--white mt--40 pb--100">
+    <div class="container-fluid">
+    <!--
+        {% if page != 'category_view' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="gallery__menu">
+                        <button data-filter="*" class="is-checked">Filter - All</button>
+                        {% for ct in category %}
+                            <button data-filter=".cat--{{ ct.id }}">{{ ct.title }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    -->
+    {% if page != 'category_view' %}
+        {% load mptt_tags %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="gallery__menu">
+                    <button data-filter="*" class="is-checked">All</button>
+                    {% recursetree category %}
+
+                            {% if  node.is_leaf_node %}
+                                <button data-filter=".cat--{{ node.id }}">{{ node.title }}</button>
+                            {% endif %}
+                        {{ children }}
+                    {% endrecursetree %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+        <div class="row masonry__wrap">
+            {% for ph in photos %}
+                <!-- Start Single Portfolio -->
+                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 gallery__item cat--{{ ph.category_id }}">
+                    <div class="portfolio">
+                        <div class="thumb">
+                            <a href="/photo/{{ ph.id }}/{{ ph.slug }}">
+                                <img src="{{ ph.image.url }}" alt="portfolio images">
+                            </a>
+                            <div class="search">
+                                <a href="{{ ph.image.url }}" data-lightbox="grportimg"
+                                   data-title="{{ ph.title }}"><i
+                                        class="zmdi zmdi-search"></i></a>
+                            </div>
+                            <div class="link">
+                                <a href="/photo/{{ ph.id }}/{{ ph.slug }}"><i class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h6><a href="/photo/{{ ph.id }}/{{ ph.slug }}">{{ ph.title }}</a></h6>
+                            <p>{{ ph.create_at}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Portfolio -->
+            {% endfor %}
+            <!--
+            <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 gallery__item cat--2">
+                <div class="portfolio">
+                   <div class="thumb">
+                        <a href="../static/portfolio-details.html">
+                            <img src="../static/images/portfolio/md-img/2.jpg" alt="portfolio images">
+                        </a>
+                        <div class="search">
+                            <a href="../static/images/portfolio/big-2/2.jpg" data-lightbox="grportimg" data-title="My caption"><i
+                                    class="zmdi zmdi-search"></i></a>
+                        </div>
+                        <div class="link">
+                            <a href="../static/portfolio-details.html"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h6><a href="../static/portfolio-details.html">Coffee & Cookie Time</a></h6>
+                        <p>road theme</p>
+                    </div>
+                </div>
+            </div>
+            -->
+
+        </div>
+    </div>
+</section>
+<!-- End Portfolio Area -->
