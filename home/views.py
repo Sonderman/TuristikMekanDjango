@@ -50,3 +50,11 @@ def contact(request):
     context = {'form': form, "setting": setting}
 
     return render(request, 'iletisim.html', context)
+
+
+def faq(request):
+    fq = FAQ.objects.filter(status='True').order_by('ordernumber')
+    setting = Setting.objects.get(pk=1)
+    context = {'faq': fq, "setting": setting}
+
+    return render(request, 'SSS.html', context)

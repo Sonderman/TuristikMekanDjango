@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8b88e32-99dc-4ffd-a38e-6c0653261ba1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/home/migrations/0002_contactformmessage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/iletisim.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home/migrations/0003_faq.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home/templates/SSS.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/admin.py" afterDir="false" />
@@ -104,7 +104,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1596542834382</updated>
-      <workItem from="1596542835533" duration="13509000" />
+      <workItem from="1596542835533" duration="15455000" />
     </task>
     <servers />
   </component>

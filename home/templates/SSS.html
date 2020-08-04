@@ -1,0 +1,63 @@
+{% extends 'HomeBase.html' %}
+{% block title %}Frequently Asking Questions{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+{% block icon %}{{ setting.icon.url }}{% endblock %}
+
+
+{% block body %}
+    {% include 'searchPopUp.html' %}
+
+    <div class="ht__bradcaump__area bg-image--5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Sıkça Sorulan Sorular</h2>
+                        <nav class="bradcaump-content">
+                            <a class="breadcrumb_item" href="/">Anasayfa</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb_item active">Sıkça Sorulan Sorular</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <br>
+                <br>
+                <div class="wn__accordeion__content">
+                    <h2>Aşağıda sık sorulan sorular bulunmaktadır, uygun cevapları kendiniz bulabilirsiniz.</h2>
+
+                </div>
+                <div id="accordion" class="wn_accordion" role="tablist">
+                    {% for fq in faq %}
+                        <div class="card">
+                            <div class="acc-header" role="tab" id="a{{ fq.id }}">
+                                <h5>
+                                    <a data-toggle="collapse" href="#b{{ fq.id }}" role="button" aria-expanded="false"
+                                       aria-controls="b{{ fq.id }}" class="collapsed">{{ fq.question }}</a>
+                                </h5>
+                            </div>
+                            <div id="b{{ fq.id }}" class="collapse" role="tabpanel" aria-labelledby="a{{ fq.id }}"
+                                 data-parent="#accordion" style="">
+                                <div class="card-body">{{ fq.answer }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+{% endblock %}
