@@ -1,0 +1,129 @@
+{% extends 'HomeBase.html' %}
+{% block title %}My Photos{% endblock %}
+{% block keywords %}My Photos{% endblock %}
+{% block description %}My Photos{% endblock %}
+{% block icon %}{{ setting.icon.url }}{% endblock %}
+
+{% block body %}
+
+{% load static %}
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">My Photos</h2>
+                        <nav class="bradcaump-content">
+                            <a class="breadcrumb_item" href="/">Home</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb_item active">My Photos</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- Start Shop Page -->
+    <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+        <div class="container">
+            <div class="row">
+
+                {% include "Pages/User/profile_left_panel.html" %}
+
+                <div class="col-lg-9 col-12 order-1 order-lg-2">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
+
+                                <p>
+                                <h1>Photos</h1></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab__container">
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div style="color:#d43f3a;font-size: medium">
+                                    {{ message|safe }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% if photos %}
+                        <table>
+
+                            <tr>
+                                 <th>
+                                    Gallery
+                                </th>
+                                <th>
+                                    Photo
+                                </th>
+
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Created At
+                                </th>
+                                <th>
+                                    Updated At
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+
+                            {% for ph in photos %}
+                                <tr>
+                                     <td>
+                                        <a href="javascript:window.open('/photo/gallery/{{ ph.id }}','','toolbar=no,location=no,directories=0,status=no,top=100,left=200,menuBar=no,scrollBars=yes,resizeable=no,width=1200,height=800');">
+                                            <img src="{% static  'images/bg/galleryIcon.png' %}" height="50" title="Image Gallery"></a>
+                                    </td>
+                                    <td>
+                                        <img height="50" src="{{ ph.image.url }}">
+                                    </td>
+
+                                    <td>
+                                        <a href="/photo/{{ ph.id }}/{{ ph.slug }}">
+                                            <strong>{{ ph.title }}</strong></a>
+                                    </td>
+                                    <td>
+                                        {{ ph.category.title }}
+                                    </td>
+                                    <td>
+                                        {{ ph.create_at }}
+                                    </td>
+                                    <td>
+                                        {{ ph.update_at }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="/user/photoedit/{{ ph.id }}"
+                                        >EDIT</a>
+                                        <a class="btn btn-danger" href="/user/photodelete/{{ ph.id }}"
+                                           onclick="return confirm('Will be Deleted! Are you Sure?')">DELETE</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        {% else %}
+                           You have not shared any photo yet! <br><br>
+                        {% endif %}
+                    <a class="btn btn-primary" href="/user/addphoto" >Add Photo</a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

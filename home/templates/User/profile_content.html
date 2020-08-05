@@ -1,0 +1,69 @@
+<div class="cart-main-area section-padding--lg bg--white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ol-lg-12">
+                <div class="table-content wnro__table table-responsive">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div style="color:#d43f3a;font-size: medium">
+                                {{ message|safe }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <table>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">
+                                <div class="cartbox__btn">
+                                    <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                                        <li><a href="/user/update">Profili Güncelle</a></li>
+                                        <li><a href="/user/password">Şifreyi Değiştir</a></li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td class="product-name"><img src="{{ profile.image.url }}"
+                                                          alt="product img"></td>
+                        </tr>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">İsim Soyisim:</th>
+                            <td class="product-name">{{ profile.user.first_name }} {{ profile.user.last_name }}
+                            </td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Email:</th>
+                            <td class="product-name">{{ profile.user.email }}</td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Telefon No:</th>
+                            <td class="product-name">{{ profile.phone }}</td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Adres:</th>
+                            <td class="product-name">{{ profile.address }}</td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Şehir:</th>
+                            <td class="product-name">{{ profile.city }}</td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Ülke:</th>
+                            <td class="product-name">{{ profile.country }}</td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

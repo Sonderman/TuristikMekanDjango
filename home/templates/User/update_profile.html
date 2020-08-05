@@ -1,0 +1,79 @@
+{% extends 'HomeBase.html' %}
+{% block title %}Update Profile{% endblock %}
+{% block keywords %}Update Profile{% endblock %}
+{% block description %}Update Profile{% endblock %}
+{% block icon %}{{ setting.icon.url }}{% endblock %}
+
+{% block body %}
+
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Profili Güncelle</h2>
+                        <nav class="bradcaump-content">
+                            <a class="breadcrumb_item" href="/">Anasayfa</a>
+                            <span class="brd-separetor">/</span>
+                            <a class="breadcrumb_item" href="/user/profile">Profil</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb_item active">Profili Güncelle</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- Start Shop Page -->
+    <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+        <div class="container">
+            <div class="row">
+
+                {% include "User/profile_left_panel.html" %}
+
+                <div class="col-lg-9 col-12 order-1 order-lg-2">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
+
+                                <p>
+                                <h1>Kullanıcı Bilgileri</h1></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab__container">
+                        <img src="{{ user.userprofile.image.url }}">
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div style="color:#d43f3a;font-size: medium">
+                                    {{ message|safe }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ user_form.as_p }}
+                                {{ profile_form.as_p }}
+                            </fieldset>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit" value="Güncelle">
+
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
