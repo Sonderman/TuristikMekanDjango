@@ -1,0 +1,375 @@
+{% extends 'HomeBase.html' %}
+{% block title %}{{ place.title }}{% endblock %}
+{% block keywords %}{{ place.keywords }}{% endblock %}
+{% block description %}{{ place.description }}{% endblock %}
+{% block icon %}{{ setting.icon.url }}{% endblock %}
+
+{% block body %}
+
+
+
+
+    <style>
+        .txt-center {
+            text-align: center;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .clear {
+            float: none;
+            clear: both;
+        }
+
+        .rating {
+            width: 90px;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+            position: relative;
+            left: 30px;
+        }
+
+        .rating > label {
+            float: right;
+            display: inline;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            width: 1.1em;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .rating > label:hover,
+        .rating > label:hover ~ label,
+        .rating > input.radio-btn:checked ~ label {
+            color: transparent;
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before,
+        .rating > input.radio-btn:checked ~ label:before,
+        .rating > input.radio-btn:checked ~ label:before {
+            content: "\2605";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+        }
+    </style>
+
+    <div class="maincontent bg--white pt--80 pb--55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-12">
+                    <div class="col">
+                        <div class="row">
+                            <img height="100" src="{{ profil.image.url }}">
+                            <div class="col">
+                                <ul>
+                                    <li><strong>{{ place.user.username }}</strong></li>
+                                    <li> Paylaşım Tarihi: {{ place.create_at }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wn__single__product">
+                        <br>
+                        <br>
+                        <br>
+
+
+                        {% include "slideofplace.html" %}
+                    </div>
+                    <br>
+                    <br>
+                    <div class="title text-uppercase">
+                        <strong>{{ place.title }}</strong>
+                    </div>
+                    <div class="product__info__detailed">
+                        <div class="pro_details_nav nav justify-content-start" role="tablist">
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details"
+                               role="tab">Detaylar</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">YORUMLAR</a>
+                        </div>
+                        <div class="tab__container">
+                            <!-- Start Single Tab Content -->
+                            <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
+                                {{ place.detail|safe }}
+                            </div>
+                            <!-- End Single Tab Content -->
+                            <!-- Start Single Tab Content -->
+                            <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
+                                <div class="blog-details content">
+                                    <div class="comments_area">
+                                        <h3 class="comment__title">Yorumlar</h3>
+                                        <ul class="comment__list">
+                                            {% for com in comments %}
+                                                <li>
+                                                    <div class="wn__comment">
+                                                        <div class="thumb">
+                                                            <img src="{{ com.userprofil.image.url }}" alt="image">
+                                                        </div>
+                                                        <div class="content">
+
+                                                            <div class="comnt__author d-block d-sm-flex">
+                                                                <span>Yazan: <a
+                                                                        href="#">{{ com.user.first_name }}</a> </span>
+                                                                <span>{{ com.create_at }}</span>
+
+                                                            </div>
+                                                            <label>Konu: </label>
+                                                            {{ com.subject }}<br>
+                                                            <label>Yorum:</label>
+                                                            <p>{{ com.comment }}</p>
+
+
+                                                            <div class="review__attribute">
+
+                                                                <div class="review__ratings__type d-flex">
+                                                                    <div class="review-ratings">
+
+                                                                        <div class="rating-summary d-flex">
+                                                                            <span>Derecelendirme:</span>
+
+                                                                            <ul class="rating d-flex">
+
+
+                                                                                <li {% if com.rate < 5 %}
+                                                                                    class="off" {% endif %}><i
+                                                                                        class="zmdi zmdi-star"></i></li>
+                                                                                <li {% if com.rate < 4 %}
+                                                                                    class="off" {% endif %}><i
+                                                                                        class="zmdi zmdi-star"></i></li>
+                                                                                <li {% if com.rate < 3 %}
+                                                                                    class="off" {% endif %}><i
+                                                                                        class="zmdi zmdi-star"></i></li>
+                                                                                <li {% if com.rate < 2 %}
+                                                                                    class="off" {% endif %}><i
+                                                                                        class="zmdi zmdi-star"></i></li>
+
+                                                                                <li {% if com.rate < 1 %}
+                                                                                    class="off" {% endif %}><i
+                                                                                        class="zmdi zmdi-star"></i></li>
+                                                                            </ul>
+
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="review-fieldset">
+                                    <h2>Önizliyorsunuz:</h2> <br>
+                                    <h3>{{ place.title }}</h3>
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <form action="/place/addcomment/{{ place.id }}" method="post">
+                                        {% csrf_token %}
+                                        <div class="review_form_field">
+
+                                            <div class="input__box">
+                                                <span>Konu</span>
+                                                <input id="summery_field" type="text" name="subject">
+                                            </div>
+                                            <div class="input__box">
+                                                <span>Yorum</span>
+                                                <textarea name="comment"
+                                                          placeholder="Type your comment here"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong class="text-uppercase">
+                                                    Derecelendirmeniz:
+                                                </strong>
+                                                <!--
+                                                <input id="star1" type="radio" name="rate" value="1"/><label
+                                                    for="star1">&#9733;</label>
+                                                <input id="star2" type="radio" name="rate" value="2"/><label
+                                                    for="star2">2</label>
+                                                <input id="star3" type="radio" name="rate" value="3"/><label
+                                                    for="star3">3</label>
+                                                <input id="star4" type="radio" name="rate" value="4"/><label
+                                                    for="star4">4</label>
+                                                <input id="star5" type="radio" name="rate" value="5"/><label
+                                                    for="star5">5</label>
+                                                    -->
+
+                                                <div class="rating">
+
+                                                    <input id="star5" name="rate" type="radio" value="5"
+                                                           class="radio-btn hide"/>
+                                                    <label for="star5">☆</label>
+                                                    <input id="star4" name="rate" type="radio" value="4"
+                                                           class="radio-btn hide"/>
+                                                    <label for="star4">☆</label>
+                                                    <input id="star3" name="rate" type="radio" value="3"
+                                                           class="radio-btn hide"/>
+                                                    <label for="star3">☆</label>
+                                                    <input id="star2" name="rate" type="radio" value="2"
+                                                           class="radio-btn hide"/>
+                                                    <label for="star2">☆</label>
+                                                    <input id="star1" name="rate" type="radio" value="1"
+                                                           class="radio-btn hide"/>
+                                                    <label for="star1">☆</label>
+                                                    <div class="clear"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="review-form-actions">
+                                                {% if user.id is not  None %}
+                                                    <input type="submit" class="btn btn-success" value="Send Comment">
+                                                {% else %}
+                                                    Yorum yapmak için lütfen giriş yapın veya kayıt olun.
+                                                    <a href="/login" class="btn btn-success">Giriş</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- End Single Tab Content -->
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <script>
+
+                    $(function () {
+                        $("#query").autocomplete({
+                            source: "/search_auto/",
+                            select: function (event, ui) { //item selected
+                                AutoCompleteSelectHandler(event, ui)
+                            },
+                            minLength: 2,
+                        });
+                    });
+
+                    function AutoCompleteSelectHandler(event, ui) {
+                        var selectedObj = ui.item;
+                    }
+
+                </script>
+
+
+                <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+                    <div class="wn__sidebar">
+                        <!-- Start Single Widget -->
+                        <aside class="widget search_widget">
+                            <h3 class="widget-title">Mekan Ara</h3>
+                            {% load mptt_tags %}
+                            <form action="/search/" method="post">
+                                {% csrf_token %}
+                                <div class="form-input">
+                                    <input type="text" id="query" name="query"
+                                           placeholder="Mekan arayın..">
+                                    <button><i class="fa fa-search"></i></button>
+                                </div>
+
+                                <label>
+                                    <select name="catid">
+                                        <option value="0">Bütün Kategoriler</option>
+                                        {% recursetree category %}
+                                            {% if node.is_leaf_node %}
+                                                <option value="{{ node.id }}">{{ node.title }}</option>
+                                            {% endif %}
+                                            {% if not node.is_leaf_node %}
+                                                <optgroup label="{{ node.title }}">
+                                                    {{ children }}
+                                                </optgroup>
+                                            {% endif %}
+
+                                        {% endrecursetree %}
+                                    </select>
+                                </label>
+
+                            </form>
+
+                        </aside>
+                        <!-- End Single Widget -->
+
+
+                        <aside class="wedget__categories poroduct--tag">
+                            <h3 class="wedget__title">Kategoriler</h3>
+                            <ul>
+                                {% recursetree category %}
+                                    {% if  node.is_leaf_node %}
+                                        <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}</a></li>
+                                    {% endif %}
+                                    {{ children }}
+                                {% endrecursetree %}
+                            </ul>
+                        </aside>
+
+                        <!-- Start Single Widget -->
+                        <aside class="widget recent_widget">
+                            <h3 class="widget-title">Son paylaşımlar</h3>
+                            <div class="recent-posts">
+                                <ul>
+                                    <li>
+                                        {% for ph in recentP %}
+                                            <div class="post-wrapper d-flex">
+                                                <div class="thumb">
+                                                    <a href="/place/{{ ph.id }}/{{ ph.slug }}"><img
+                                                            src="{{ ph.image.url }}"
+                                                            alt="{{ ph.description }}"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a href="/photo/{{ ph.id }}/{{ ph.slug }}">{{ ph.title }}</a>
+                                                    </h4>
+                                                    <p> {{ ph.create_at }}</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        {% endfor %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                        <!-- End Single Widget -->
+                        <!-- Start Single Widget -->
+                        <aside class="widget comment_widget">
+                            <h3 class="widget-title"> Son Yorumlar</h3>
+                            <ul>
+                                {% for com in recentCom %}
+                                    <li>
+                                        <div class="post-wrapper">
+                                            <div class="thumb">
+                                                <img src="{{ com.userprofil.image.url }}" alt="Comment image">
+                                            </div>
+                                            <div class="content">
+                                                <p>{{ com.user.first_name }} says:</p>
+                                                <a href="/place/{{ com.place.id }}/{{ com.place.slug }}">{{ com.comment }}</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </aside>
+                        <!-- End Single Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

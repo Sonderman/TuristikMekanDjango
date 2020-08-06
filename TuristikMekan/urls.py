@@ -22,6 +22,7 @@ from home import views
 
 urlpatterns = [
     path('', include('home.urls')),
+    path('place/', include('mekan.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('logout/', views.logout_view, name='logout_view'),

@@ -1,0 +1,9 @@
+{% load static %}
+
+
+<div class="fotorama" data-width="90%" data-nav="thumbs">
+    <a href="{{ place.id }}.jpg"><img src="{{ place.image.url }}" alt=""></a>
+    {% for img in imgofplace %}
+        <a href="{{ img.id }}.jpg"><img src="{{ img.image.url }}" alt=""></a>
+    {% endfor %}
+</div>

@@ -4,31 +4,41 @@ from django.http import *
 from django.shortcuts import render
 from home.forms import SignUpForm
 from home.models import *
+from mekan.models import *
+
+
+def common():
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    return {'setting': setting,
+            'category': category
+            }
 
 
 def index(request):
     setting = Setting.objects.get(pk=1)
-    # category = Category.objects.all()
+    category = Category.objects.all()
     context = {
-        "setting": setting
+        "setting": setting,
+        'category': category
     }
     return render(request, 'index.html', context)
 
 
 def aboutus(request):
     setting = Setting.objects.get(pk=1)
-    # category = Category.objects.all()
+    category = Category.objects.all()
     context = {
-        "setting": setting
+        "setting": setting,'category': category
     }
     return render(request, 'hakkimizda.html', context)
 
 
 def references(request):
     setting = Setting.objects.get(pk=1)
-    # category = Category.objects.all()
+    category = Category.objects.all()
     context = {
-        "setting": setting
+        "setting": setting,'category': category
     }
     return render(request, 'referanslar.html', context)
 
@@ -103,3 +113,20 @@ def signup_view(request):
     setting = Setting.objects.get(pk=1)
     context = {"setting": setting, 'form': form}
     return render(request, 'signup.html', context)
+
+
+def place_detail(request, id, slug):
+    place = Place.objects.get(pk=id, status='True')
+    profil = UserProfile.objects.get(user_id=place.user_id)
+    recentP = Place.objects.filter(status='True').order_by('-id')[:5]
+    # recentCom = Comment.objects.filter(status='True').order_by('-id')[:5]
+    images = Images.objects.filter(place_id=id)
+    # comments = Comment.objects.filter(place_id=id, status='True')
+    context = {'place': place,
+               'imgofplace': images,
+               # 'comments': comments,
+               'recentP': recentP,
+               # 'recentCom': recentCom,
+               'profil': profil}
+    context.update(common())
+    return render(request, 'placeDetail.html', context)
