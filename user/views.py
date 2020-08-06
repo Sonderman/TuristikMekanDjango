@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from home.models import UserProfile, Setting
-from mekan.models import PlaceForm, Place
+from home.models import *
+from mekan.models import *
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 
@@ -138,7 +138,6 @@ def placedelete(request, id):
     return HttpResponseRedirect('/user/places')
 
 
-'''
 @login_required(login_url='/login')
 def comments(request):
     current_user = request.user
@@ -154,9 +153,5 @@ def comments(request):
 def delete_comment(request, id):
     current_user = request.user
     Comment.objects.get(id=id, user_id=current_user.id).delete()
-    messages.success(request, "Your Comment is successfully deleted")
+    messages.success(request, "Yorumunuz başarıyla Silindi.")
     return HttpResponseRedirect('/user/comments')
-
-
-
-'''
