@@ -80,15 +80,15 @@ class PlaceForm(ModelForm):
         model = Place
         fields = ['category', 'title', 'slug', 'keywords', 'description', 'image', 'detail']
         widgets = {
-            'title': TextInput(attrs={'class': 'input', 'placeholder': 'title'}),
-            'keywords': TextInput(attrs={'class': 'input', 'placeholder': 'keywords'}),
-            'description': TextInput(attrs={'class': 'input', 'placeholder': 'description'}),
-            'category': Select(attrs={'class': 'input', 'placeholder': 'type'}, choices=(
+            'Başlık': TextInput(attrs={'class': 'input', 'placeholder': 'Başlık'}),
+            'Keywords': TextInput(attrs={'class': 'input', 'placeholder': 'Keywords'}),
+            'Tanım': TextInput(attrs={'class': 'input', 'placeholder': 'Tanım'}),
+            'Kategori': Select(attrs={'class': 'input', 'placeholder': 'Kategori'}, choices=(
                 Category.objects.all()
             )),
-            'image': FileInput(attrs={'class': 'input', 'placeholder': 'image'}),
+            'Resim': FileInput(attrs={'class': 'input', 'placeholder': 'Resim'}),
             'slug': TextInput(attrs={'class': 'input', 'placeholder': 'slug'}),
-            'detail': CKEditorWidget(),
+            'Detay': CKEditorWidget(),
         }
 
 

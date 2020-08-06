@@ -20,13 +20,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">Add Or Update Photo</h2>
+                        <h2 class="bradcaump-title">Ekle veya Güncelle</h2>
                         <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="/">Home</a>
+                            <a class="breadcrumb_item" href="/">Anasayfa</a>
                             <span class="brd-separetor">/</span>
-                            <a class="breadcrumb_item" href="/user/photos">My Photos</a>
+                            <a class="breadcrumb_item" href="/user/places">Mekanlarım</a>
                             <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">Add Or Update Photo</span>
+                            <span class="breadcrumb_item active">Ekle veya Güncelle</span>
                         </nav>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row">
 
-                {% include "Pages/User/profile_left_panel.html" %}
+                {% include "User/profile_left_panel.html" %}
 
                 <div class="col-lg-9 col-12 order-1 order-lg-2">
                     <div class="row">
@@ -47,7 +47,7 @@
                             <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
 
                                 <p>
-                                <h1>User Information</h1></p>
+                                <h1>Mekan Bilgileri</h1></p>
 
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 {{ form.as_p }}
                             </fieldset>
                             <div class="form-group">
-                                <input class="btn btn-primary" type="submit" value="Save">
+                                <input class="btn btn-primary" type="submit" value="Kaydet">
                             </div>
                         </form>
                     </div>

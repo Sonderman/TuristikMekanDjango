@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from home.models import UserProfile, Setting
+from mekan.models import PlaceForm, Place
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 
@@ -64,6 +66,78 @@ def change_password(request):
         return render(request, 'User/change_password.html', context)
 
 
+@login_required(login_url='/login')
+def addplaces(request):
+    if request.method == 'POST':
+        form = PlaceForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Place()
+            data.user_id = current_user.id
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.slug = form.cleaned_data['slug']
+            data.detail = form.cleaned_data['detail']
+            data.status = 'False'
+            data.category_id = form.cleaned_data['category'].id
+            data.save()
+            messages.success(request, "Mekan başarıyla eklendi.")
+            return HttpResponseRedirect("/user/places")
+        else:
+            messages.warning(request, "Error:" + str(form.errors))
+            return HttpResponseRedirect("/user/addplace")
+    else:
+        form = PlaceForm()
+        context = {
+            'form': form,
+        }
+        context.update(common())
+        return render(request, 'User/add_placePage.html', context)
+
+
+@login_required(login_url='/login')
+def places(request):
+    # menu = Menu.objects.all()
+    place = Place.objects.filter(user_id=request.user.id)
+    context = {
+        'places': place,
+    }
+    context.update(common())
+    return render(request, 'User/placesPage.html', context)
+
+
+@login_required(login_url='/login')
+def placeedit(request, id):
+    place = Place.objects.get(id=id)
+    if request.method == 'POST':
+        form = PlaceForm(request.POST, request.FILES, instance=place)
+        if form.is_valid():
+            place = form.save(commit=False)
+            place.status = 'False'
+            place.save()
+            messages.success(request, "Mekan başarıyla değiştirildi.")
+            return HttpResponseRedirect("/user/places")
+        else:
+            messages.warning(request, "Error:" + str(form.errors))
+            return HttpResponseRedirect("/user/placeedit/" + str(id))
+    else:
+        form = PlaceForm(instance=place)
+        context = {
+            'form': form,
+        }
+        context.update(common())
+        return render(request, 'User/add_placePage.html', context)
+
+
+@login_required(login_url='/login')
+def placedelete(request, id):
+    Place.objects.filter(id=id, user_id=request.user.id).delete()
+    messages.success(request, "Mekan silindi.")
+    return HttpResponseRedirect('/user/places')
+
+
 '''
 @login_required(login_url='/login')
 def comments(request):
@@ -84,74 +158,5 @@ def delete_comment(request, id):
     return HttpResponseRedirect('/user/comments')
 
 
-@login_required(login_url='/login')
-def addplaces(request):
-    if request.method == 'POST':
-        form = PhotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            current_user = request.user
-            data = Photo()
-            data.user_id = current_user.id
-            data.title = form.cleaned_data['title']
-            data.keywords = form.cleaned_data['keywords']
-            data.description = form.cleaned_data['description']
-            data.image = form.cleaned_data['image']
-            data.slug = form.cleaned_data['slug']
-            data.detail = form.cleaned_data['detail']
-            data.status = 'False'
-            data.category_id = form.cleaned_data['category'].id
-            data.save()
-            messages.success(request, "Photo succesfully added")
-            return HttpResponseRedirect("/user/photos")
-        else:
-            messages.warning(request, "Error:" + str(form.errors))
-            return HttpResponseRedirect("/user/addphoto")
-    else:
-        form = PhotoForm()
-        context = {
-            'form': form,
-        }
-        context.update(common())
-        return render(request, 'User/add_photoPage.html', context)
 
-
-@login_required(login_url='/login')
-def places(request):
-    # menu = Menu.objects.all()
-    photo = Photo.objects.filter(user_id=request.user.id, status='True')
-    context = {
-        'photos': photo,
-    }
-    context.update(common())
-    return render(request, 'User/photosPage.html', context)
-
-
-@login_required(login_url='/login')
-def placeedit(request, id):
-    photo = Photo.objects.get(id=id)
-    if request.method == 'POST':
-        form = PhotoForm(request.POST, request.FILES, instance=photo)
-        if form.is_valid():
-            photo = form.save(commit=False)
-            photo.status = 'False'
-            photo.save()
-            messages.success(request, "Photo succesfully Edited")
-            return HttpResponseRedirect("/user/photos")
-        else:
-            messages.warning(request, "Error:" + str(form.errors))
-            return HttpResponseRedirect("/user/photoedit/" + str(id))
-    else:
-        form = PhotoForm(instance=photo)
-        context = {
-            'form': form,
-        }
-        context.update(common())
-        return render(request, 'User/add_photoPage.html', context)
-
-
-@login_required(login_url='/login')
-def placedelete(request, id):
-    Photo.objects.filter(id=id, user_id=request.user.id).delete()
-    messages.success(request, "Photo deleted..")
-    return HttpResponseRedirect('/user/photos')
 '''

@@ -1,7 +1,7 @@
 {% extends 'HomeBase.html' %}
-{% block title %}My Photos{% endblock %}
-{% block keywords %}My Photos{% endblock %}
-{% block description %}My Photos{% endblock %}
+{% block title %}My Places{% endblock %}
+{% block keywords %}My Places{% endblock %}
+{% block description %}My Places{% endblock %}
 {% block icon %}{{ setting.icon.url }}{% endblock %}
 
 {% block body %}
@@ -13,11 +13,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">My Photos</h2>
+                        <h2 class="bradcaump-title">Mekanlarım</h2>
                         <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="/">Home</a>
+                            <a class="breadcrumb_item" href="/">Anasayfa</a>
                             <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">My Photos</span>
+                            <span class="breadcrumb_item active">Mekanlarım</span>
                         </nav>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
 
-                {% include "Pages/User/profile_left_panel.html" %}
+                {% include "User/profile_left_panel.html" %}
 
                 <div class="col-lg-9 col-12 order-1 order-lg-2">
                     <div class="row">
@@ -38,7 +38,7 @@
                             <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
 
                                 <p>
-                                <h1>Photos</h1></p>
+                                <h1>Mekanlar</h1></p>
 
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
-                    {% if photos %}
+                    {% if places %}
                         <table>
 
                             <tr>
@@ -60,30 +60,33 @@
                                     Gallery
                                 </th>
                                 <th>
-                                    Photo
+                                    Mekan
                                 </th>
 
                                 <th>
-                                    Title
+                                    Başlık
                                 </th>
                                 <th>
-                                    Category
+                                    Kategori
                                 </th>
                                 <th>
-                                    Created At
+                                    Oluşturulma Tarihi
                                 </th>
                                 <th>
-                                    Updated At
+                                    Değiştirilme Tarihi
                                 </th>
                                 <th>
-                                    Action
+                                    Statü
+                                </th>
+                                <th>
+                                    Eylem
                                 </th>
                             </tr>
 
-                            {% for ph in photos %}
+                            {% for ph in places %}
                                 <tr>
                                      <td>
-                                        <a href="javascript:window.open('/photo/gallery/{{ ph.id }}','','toolbar=no,location=no,directories=0,status=no,top=100,left=200,menuBar=no,scrollBars=yes,resizeable=no,width=1200,height=800');">
+                                        <a href="javascript:window.open('/place/gallery/{{ ph.id }}','','toolbar=no,location=no,directories=0,status=no,top=100,left=200,menuBar=no,scrollBars=yes,resizeable=no,width=1200,height=800');">
                                             <img src="{% static  'images/bg/galleryIcon.png' %}" height="50" title="Image Gallery"></a>
                                     </td>
                                     <td>
@@ -91,7 +94,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="/photo/{{ ph.id }}/{{ ph.slug }}">
+                                        <a href="/place/{{ ph.id }}/{{ ph.slug }}">
                                             <strong>{{ ph.title }}</strong></a>
                                     </td>
                                     <td>
@@ -104,19 +107,22 @@
                                         {{ ph.update_at }}
                                     </td>
                                     <td>
-                                        <a class="btn btn-success" href="/user/photoedit/{{ ph.id }}"
-                                        >EDIT</a>
-                                        <a class="btn btn-danger" href="/user/photodelete/{{ ph.id }}"
-                                           onclick="return confirm('Will be Deleted! Are you Sure?')">DELETE</a>
+                                        {{ ph.status }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="/user/placeedit/{{ ph.id }}"
+                                        >Değiştir</a>
+                                        <a class="btn btn-danger" href="/user/placedelete/{{ ph.id }}"
+                                           onclick="return confirm('Onaylıyormusunuz?')">Sil</a>
                                     </td>
                                 </tr>
                             {% endfor %}
 
                         </table>
                         {% else %}
-                           You have not shared any photo yet! <br><br>
+                           Henüz bir mekan yayınlamadınız! <br><br>
                         {% endif %}
-                    <a class="btn btn-primary" href="/user/addphoto" >Add Photo</a>
+                    <a class="btn btn-primary" href="/user/addplaces" >Mekan Ekle</a>
 
                     </div>
 
