@@ -1,11 +1,12 @@
 <!-- Start Search Popup -->
 <div class="brown--color box-search-content search_active block-bg close__top">
-    <form id="search_mini_form" class="minisearch" action="/search/" method="post">
+    <form id="search_mini_form" class="minisearch" action="search/" method="post">
         {% csrf_token %}
         <div class="field__search">
-            <input type="text" name="query" placeholder="Search entire photos here...">
+            <input type="text" name="query" placeholder="Buradan arama yapabilirsiniz">
+            <input type="hidden" name="catid" value="0">
             <div class="action">
-                <button class="zmdi zmdi-search" ></button>
+                <button type="submit" class="zmdi zmdi-search" ></button>
             </div>
         </div>
     </form>

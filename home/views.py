@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import *
 from django.shortcuts import render
-from home.forms import SignUpForm
+from home.forms import SignUpForm, SearchForm
 from home.models import *
 from mekan.models import *
+import json
 
 
 def common():
@@ -143,6 +144,38 @@ def category_view(request, id, slug):
     context = {'places': places, 'page': 'category_view'}
     context.update(common())
     return render(request, 'categoryGallery.html', context)
+
+
+def place_search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            catid = form.cleaned_data['catid']
+            if catid == 0:
+                places = Place.objects.filter(title__icontains=query, status='True')
+            else:
+                places = Place.objects.filter(title__icontains=query, category_id=catid, status='True')
+            context = {'places': places}
+            context.update(common())
+            return render(request, 'place_search.html', context)
+    return HttpResponseRedirect('/')
+
+
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        place = Place.objects.filter(title__icontains=q, status='True')
+        results = []
+        for ph in place:
+            photo_json = {}
+            photo_json = ph.title
+            results.append(photo_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 def randplace(request):
