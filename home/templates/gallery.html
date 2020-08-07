@@ -35,12 +35,12 @@
 
 
         <div class="row masonry__wrap">
-            {% for ph in photos %}
+            {% for ph in places %}
                 <!-- Start Single Portfolio -->
                 <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 gallery__item cat--{{ ph.category_id }}">
                     <div class="portfolio">
                         <div class="thumb">
-                            <a href="/photo/{{ ph.id }}/{{ ph.slug }}">
+                            <a href="/place/{{ ph.id }}/{{ ph.slug }}">
                                 <img src="{{ ph.image.url }}" alt="portfolio images">
                             </a>
                             <div class="search">
@@ -49,11 +49,11 @@
                                         class="zmdi zmdi-search"></i></a>
                             </div>
                             <div class="link">
-                                <a href="/photo/{{ ph.id }}/{{ ph.slug }}"><i class="fa fa-link"></i></a>
+                                <a href="/place/{{ ph.id }}/{{ ph.slug }}"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
                         <div class="content">
-                            <h6><a href="/photo/{{ ph.id }}/{{ ph.slug }}">{{ ph.title }}</a></h6>
+                            <h6><a href="/place/{{ ph.id }}/{{ ph.slug }}">{{ ph.title }}</a></h6>
                             <p>{{ ph.create_at}}</p>
                         </div>
                     </div>
