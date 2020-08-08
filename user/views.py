@@ -155,3 +155,30 @@ def delete_comment(request, id):
     Comment.objects.get(id=id, user_id=current_user.id).delete()
     messages.success(request, "Yorumunuz başarıyla Silindi.")
     return HttpResponseRedirect('/user/comments')
+
+
+@login_required(login_url='/login')
+def placeaddimage(request, id):
+    if request.method == 'POST':
+        lasturl = request.META.get('HTTP_REFERER')
+        form = ImagesForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = Images()
+            data.title = form.cleaned_data['title']
+            data.place_id = id
+            data.image = form.cleaned_data['image']
+            data.save()
+            messages.success(request, 'Resim başarıyla yüklendi.')
+            return HttpResponseRedirect(lasturl)
+        else:
+            messages.warning(request, 'Resim yüklenirken hata!!')
+            return HttpResponseRedirect(lasturl)
+    else:
+        place = Place.objects.get(id=id)
+        images = Images.objects.filter(place_id=id)
+        form = ImagesForm()
+        context = {'place': place,
+                   'images': images,
+                   'form': form
+                   }
+        return render(request, 'User/imagesGallery.html', context)

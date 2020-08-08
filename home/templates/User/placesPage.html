@@ -86,7 +86,7 @@
                             {% for ph in places %}
                                 <tr>
                                      <td>
-                                        <a href="javascript:window.open('/place/gallery/{{ ph.id }}','','toolbar=no,location=no,directories=0,status=no,top=100,left=200,menuBar=no,scrollBars=yes,resizeable=no,width=1200,height=800');">
+                                        <a href="javascript:window.open('/user/placeaddimage/{{ ph.id }}','gallery','top=100,left=200,width=1200,height=800');">
                                             <img src="{% static  'images/bg/galleryIcon.png' %}" height="50" title="Image Gallery"></a>
                                     </td>
                                     <td>

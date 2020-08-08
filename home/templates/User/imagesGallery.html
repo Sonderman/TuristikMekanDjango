@@ -1,6 +1,9 @@
 {% extends "HomeBase.html" %}
-
+{% block title %}Mekan Galeri{% endblock %}
 {% block clean %}
+
+    <h2>{{ place.title }}</h2>
+    <hr>
     <div class="col">
 
 
@@ -16,40 +19,28 @@
             </div>
             <div class="col"></div>
         </div>
-        <table style="width:100%; margin-bottom: 30px">
-            <tr>
-                <th style="background-color: whitesmoke">Title</th>
-                <th style="background-color: whitesmoke">Image</th>
-                <th style="background-color: whitesmoke">Actions</th>
-            </tr>
-            {% for rs in images %}
-                <tr>
-                    <td>
-                        {{ rs.title }}
-                    </td>
-                    <td>
-                        <img src="{{ rs.image.url }}" style="height: 30px; width: auto">
-                    </td>
-                    <td><a class="btn btn-danger" href="/photo/gallerydelete/{{ rs.id }}"
-                           onclick="return confirm('Will be delete ! Are you sure ?')">Delete</a></td>
-                </tr>
-            {% endfor %}
-        </table>
 
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                <form action="/photo/galleryadd/{{ id }}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        {{ form.as_p }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add Image</button>
+        <hr>
+
+        <div class="col">
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="color:#d43f3a;font-size: medium">
+                        {{ message|safe }}
                     </div>
-                </form>
-            </div>
-            <div class="col"></div>
+                {% endfor %}
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form.as_p }}
+                </fieldset>
+                <input type="hidden" name="place_id" value="{{ place.id }}">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Resim Ekle</button>
+                </div>
+            </form>
         </div>
+
     </div>
 {% endblock %}
