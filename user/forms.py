@@ -10,10 +10,10 @@ class UserUpdateForm(UserChangeForm):
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')  # "__all__"
         widgets = {
-            'username': TextInput(attrs={'class': 'input', 'placeholder': 'username'}),
+            'Kullanıcı Adı': TextInput(attrs={'class': 'input', 'placeholder': 'Kullanıcı Adı'}),
             'email': EmailInput(attrs={'class': 'input', 'placeholder': 'email'}),
-            'first_name': TextInput(attrs={'class': 'input', 'placeholder': 'first_name'}),
-            'last_name': TextInput(attrs={'class': 'input', 'placeholder': 'last_name'})
+            'İsim': TextInput(attrs={'class': 'input', 'placeholder': 'İsim'}),
+            'Soyisim': TextInput(attrs={'class': 'input', 'placeholder': 'Soyisim'})
         }
 
 
@@ -29,9 +29,9 @@ class ProfileUpdateForm(ModelForm):
         model = UserProfile
         fields = ['phone', 'address', 'city', 'country', 'image']
         widgets = {
-            'phone': TextInput(attrs={'class': 'input', 'placeholder': 'phone'}),
-            'address': TextInput(attrs={'class': 'input', 'placeholder': 'address'}),
-            'city': Select(attrs={'class': 'input', 'placeholder': 'city'}, choices=CITY),
-            'country': TextInput(attrs={'class': 'input', 'placeholder': 'country'}),
-            'image': FileInput(attrs={'class': 'input', 'placeholder': 'image'})
+            'Tel No': TextInput(attrs={'class': 'input', 'placeholder': 'Tel No'}),
+            'Adres': TextInput(attrs={'class': 'input', 'placeholder': 'Adres'}),
+            'Şehir': Select(attrs={'class': 'input', 'placeholder': 'Şehir'}, choices=CITY),
+            'Ülke': TextInput(attrs={'class': 'input', 'placeholder': 'Ülke'}),
+            'Profil Resimi': FileInput(attrs={'class': 'input', 'placeholder': 'Profil Resimi'})
         }

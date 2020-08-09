@@ -81,6 +81,8 @@ def addplaces(request):
             data.slug = form.cleaned_data['slug']
             data.detail = form.cleaned_data['detail']
             data.status = 'False'
+            data.country = form.cleaned_data['country']
+            data.city = form.cleaned_data['city']
             data.category_id = form.cleaned_data['category'].id
             data.save()
             messages.success(request, "Mekan başarıyla eklendi.")

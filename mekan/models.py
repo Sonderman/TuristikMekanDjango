@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
-
 from home.models import UserProfile
 
 
@@ -58,6 +57,8 @@ class Place(models.Model):
     title = models.CharField(max_length=100)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
     detail = RichTextUploadingField(blank=True)
     slug = models.SlugField(null=False, unique=True)
     image = models.ImageField(upload_to='images/', max_length=255)  # py -m pip install --upgrade Pillow
@@ -80,11 +81,13 @@ class Place(models.Model):
 class PlaceForm(ModelForm):
     class Meta:
         model = Place
-        fields = ['category', 'title', 'slug', 'keywords', 'description', 'image', 'detail']
+        fields = ['category', 'title', 'slug', 'keywords', 'description', 'country', 'city', 'image', 'detail']
         widgets = {
             'Başlık': TextInput(attrs={'class': 'input', 'placeholder': 'Başlık'}),
             'Keywords': TextInput(attrs={'class': 'input', 'placeholder': 'Keywords'}),
             'Tanım': TextInput(attrs={'class': 'input', 'placeholder': 'Tanım'}),
+            'Ülke': TextInput(attrs={'class': 'input', 'placeholder': 'Ülke'}),
+            'Şehir': TextInput(attrs={'class': 'input', 'placeholder': 'Şehir'}),
             'Kategori': Select(attrs={'class': 'input', 'placeholder': 'Kategori'}, choices=(
                 Category.objects.all()
             )),
