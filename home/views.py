@@ -58,6 +58,7 @@ def contact(request):
             data.subject = form.cleaned_data['subject']
             data.message = form.cleaned_data['message']
             data.ip = request.META.get('REMOTE_ADDR')
+            data.status = "New"
             data.save()
             messages.success(request, "Mesajınız başarıyla alınmıştır, teşekkürler.")
             return HttpResponseRedirect('/contact')

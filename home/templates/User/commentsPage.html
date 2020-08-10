@@ -52,6 +52,7 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+
                     {% if comments %}
                         <table>
 
@@ -73,6 +74,9 @@
 
                                 <th>
                                     Yorum
+                                </th>
+                                <th>
+                                    Status
                                 </th>
                                 <th>
                                     Eylem
@@ -103,6 +107,9 @@
 
                                     <td>
                                         {{ com.comment }}
+                                    </td>
+                                    <td>
+                                        {{ com.status }}
                                     </td>
                                     <td>
                                             <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">

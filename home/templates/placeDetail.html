@@ -70,7 +70,7 @@
                             <div class="col">
                                 <ul>
                                     <li><strong>{{ place.user.username }}</strong></li>
-                                    <li> Paylaşım Tarihi: {{ place.create_at }}</li>
+                                    <li> Paylaşım Tarihi: {{ place.update_at }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                                             <div class="comnt__author d-block d-sm-flex">
                                                                 <span>Yazan: <a
                                                                         href="#">{{ com.user.first_name }}</a> </span>
-                                                                <span>{{ com.create_at }}</span>
+                                                                <span>{{ com.update_at }}</span>
 
                                                             </div>
                                                             <label>Konu: </label>
@@ -323,7 +323,7 @@
                                                 <div class="content">
                                                     <h4><a href="/place/{{ ph.id }}/{{ ph.slug }}">{{ ph.title }}</a>
                                                     </h4>
-                                                    <p> {{ ph.create_at }}</p>
+                                                    <p> {{ ph.update_at }}</p>
                                                 </div>
                                             </div>
                                             <hr>

@@ -11,9 +11,9 @@ from user.forms import UserUpdateForm, ProfileUpdateForm
 
 def common():
     setting = Setting.objects.get(pk=1)
-    # category = Category.objects.all()
+    category = Category.objects.all()
     return {'setting': setting,
-            # 'category': category
+            'category': category
             }
 
 
